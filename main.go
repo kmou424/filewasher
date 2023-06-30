@@ -21,10 +21,12 @@ import (
 
 var (
 	initial bool
+	version bool
 )
 
 func parse() {
 	flag.BoolVar(&initial, "init", false, "initial .env for app")
+	flag.BoolVar(&version, "version", false, "show version")
 	flag.Parse()
 }
 
@@ -131,6 +133,8 @@ func main() {
 	parse()
 
 	switch {
+	case version:
+		fmt.Println(consts.Verison)
 	case initial:
 		initEnv()
 	default:
