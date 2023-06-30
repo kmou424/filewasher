@@ -44,7 +44,10 @@ func initEnv() {
 
 func run() {
 	err := godotenv.Load("filewasher.env")
-	exceptiongo.QuickThrow[types.LoadEnvFailedException](err)
+	if err != nil {
+		logger.Logf(`you must execute "-init" at first`)
+		return
+	}
 
 	scanExtensionsStr := utils.RequireEnv(consts.EnvScanExtensions)
 	if strutil.Trim(scanExtensionsStr) == "" {
